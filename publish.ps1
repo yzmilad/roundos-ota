@@ -9,7 +9,7 @@ if ($Version -notmatch '^\d+\.\d+\.\d+$') {
 }
 
 $repo = "yzmilad/roundos-ota"
-$url = "https://github.com/$repo/releases/download/v$Version/firmware.bin"
+$url = "https://cdn.jsdelivr.net/gh/yzmilad/roundos-ota@main/firmware.bin"
 $json = "{`"version`":`"$Version`",`"url`":`"$url`"}"
 [System.IO.File]::WriteAllText((Join-Path $PSScriptRoot "version.json"), $json)
 
@@ -26,7 +26,10 @@ if ($Bin) {
 Push-Location $PSScriptRoot
 try {
   git add version.json
-  $st = git status --porcelain -- version.json
+  if ($Bin) {
+    git add -f firmware.bin
+  }
+  $st = git status --porcelain -- version.json firmware.bin
   if ($st) {
     git commit -m "Point manifest at v$Version"
     git push origin HEAD

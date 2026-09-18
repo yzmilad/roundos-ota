@@ -4,7 +4,9 @@ Public **firmware files only**. Source stays private: [yzmilad/esp32-s3-touch-lc
 
 The watch **never changes its URL**. It always downloads:
 
-https://github.com/yzmilad/roundos-ota/releases/latest/download/version.json
+https://cdn.jsdelivr.net/gh/yzmilad/roundos-ota@main/version.json
+
+GitHub Releases is a fallback. `firmware.bin` lives in this repo so jsDelivr can serve it.
 
 ## How later versions work
 
